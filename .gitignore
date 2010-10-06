@@ -16,3 +16,4 @@ Thumbs.db
 config/*.sphinx.conf
 *.swp
 *.tmproj
+config/facebooker.yml
