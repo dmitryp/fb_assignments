@@ -1,0 +1,72 @@
+%h1
+  Assignments
+%div
+  = link_to 'Create assignment', new_resource_path
+  |
+  = link_to 'Import', import_assignments_path, :class => 'import_assignments'
+
+%table
+  %tr
+    %th.first{:width => 50} #
+    %th{:width => 300} Stay Dates
+    %th{:width => 160} Status
+    %th{:width => 70} Name
+    %th &nbsp;
+  - for resource in collection
+    %tr
+      %td= resource.id
+      %td
+        = show_date resource.start_at.to_date
+        \-
+        = show_date resource.end_at.to_date
+      %td= t resource.status, :scope => "assignment.statuses"
+      %td= h resource.full_name
+      %td
+        = link_to 'edit', edit_resource_path(resource)
+        = link_to_destroy_assignment(resource)
+%p
+  = will_paginate collection
+
+
+#popup.jqmWindow
+  - form_tag assignments_path, :class => :formtastic, :method => :delete do
+    %fieldset.import
+      %legend Delete assignment
+      %ol
+        %li
+          %label VRBO login
+          = text_field_tag :vrbo_login
+      %ol
+        %li
+          %label VRBO password
+          = password_field_tag :vrbo_password
+      %ol
+        %li
+          = submit_tag 'Delete'
+          = link_to 'Cancel', "#", :class => 'jqmClose'
+
+#popup2.jqmWindow
+  - form_tag import_assignments_path, :class => :formtastic do
+    %fieldset.import
+      %legend Import from VRBO.com
+      %ol
+        %li
+          %label VRBO login
+          = text_field_tag :vrbo_login
+      %ol
+        %li
+          %label VRBO password
+          = password_field_tag :vrbo_password
+      %ol
+        %li
+          %label VRBO lisitng ID
+          = text_field_tag :vrbo_listing_id
+      %ol
+        %li
+          %label Year
+          = select_tag :year, options_for_select([nil] + (2009..2015).to_a)
+          %p.inline-hints select a year from which you wish to import reservations
+      %ol
+        %li
+          = submit_tag 'Import'
+          = link_to 'Cancel', "#", :class => 'jqmClose'

@@ -1,0 +1,2 @@
+class RemoteAssignmentError < StandardError
+end

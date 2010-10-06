@@ -1,0 +1,109 @@
+form.formtastic fieldset > ol > li{
+  overflow:hidden;
+}
+form.formtastic fieldset > ol > li {
+margin-bottom:0.5em;
+}
+
+form.formtastic abbr, form.formtastic acronym{
+  color:red;
+}
+
+form.formtastic fieldset > ol > li.text textarea {
+  width:63%;
+}
+form.formtastic {
+  font-size:0.95em;
+}
+form.formtastic fieldset > ol > li p.inline-errors {
+  clear: both;
+}
+input.short{
+  width: 30px;
+}
+
+body{
+/*  background-color: #f0f0f0;*/
+/*  font-size:0.95em;*/
+}
+
+a, a:hover, a:visited{
+  color: #0000FF
+}
+#body{
+  width: 730px;
+  margin-right: auto;
+  margin-left:auto;
+  
+}
+
+#menu {
+  border-bottom: 2px solid #303030;
+}
+
+#flash .flash{
+  border:3px solid green;
+  color:green;
+  font-weight:bold;
+  margin:10px 0;
+  padding:10px;
+}
+
+#flash .flash.alert{
+  border: 1px solid red;
+  color: red;
+  font-weight:bold;
+  margin:10px 0;
+  padding:10px;
+}
+
+table{
+  width: 100%;
+}
+th{
+  text-align:left;
+}
+form.formtastic fieldset.import {border:1px solid #000;padding-left:10px}
+
+.hidden{
+  display:none;
+}
+
+
+/* jqModal base Styling courtesy of;
+	Brice Burgess <bhb@iceburg.net> */
+
+/* The Window's CSS z-index value is respected (takes priority). If none is supplied,
+	the Window's z-index value will be set to 3000 by default (via jqModal.js). */
+	
+.jqmWindow {
+    display: none;
+    
+    position: fixed;
+    top: 17%;
+    left: 50%;
+    
+    margin-left: -300px;
+    width: 600px;
+    
+    background-color: #ffffff;
+    color: #333;
+    border: 1px solid black;
+    padding: 12px;
+}
+
+.jqmOverlay { background-color: #000; }
+
+/* Background iframe styling for IE6. Prevents ActiveX bleed-through (<select> form elements, etc.) */
+* iframe.jqm {position:absolute;top:0;left:0;z-index:-1;
+	width: expression(this.parentNode.offsetWidth+'px');
+	height: expression(this.parentNode.offsetHeight+'px');
+}
+
+/* Fixed posistioning emulation for IE6
+     Star selector used to hide definition from browsers other than IE6
+     For valid CSS, use a conditional include instead */
+* html .jqmWindow {
+     position: absolute;
+     top: expression((document.documentElement.scrollTop || document.body.scrollTop) + Math.round(17 * (document.documentElement.offsetHeight || document.body.clientHeight) / 100) + 'px');
+}

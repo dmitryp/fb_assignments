@@ -1,0 +1,37 @@
+%div{:style => "width: 650px"}
+  - unless resource.errors.blank?
+    %h2 #{pluralize(resource.errors.size, 'error')} prohibited assignment from being saved
+  - f.inputs do
+    = f.input :start_at, :label => 'Arrival Date & Time'
+    = f.input :end_at, :label => 'Departure Date & Time'
+    = f.input :status, :label => 'Status', :collection => Assignment::STATUSES.map{|s| [t(s, :scope => "assignment.statuses"), s]}
+    = f.input :notes, :label => 'Notes', :required => false, :input_html => {:rows => 3}
+    = f.input :first_name, :label => 'First Name', :required => false
+    = f.input :last_name, :label => 'Last Name', :required => false
+    = f.input :email, :label => 'Email', :required => false
+    = f.input :phone, :label => 'Phone', :required => false
+    = f.input :mobile, :label => 'Mobile', :required => false
+    = f.input :fax, :label => 'Fax', :required => false
+    = f.input :address1, :label => 'Address1', :required => false
+    = f.input :address2, :label => 'Address2', :required => false
+    = f.input :city, :label => 'City', :required => false
+    = f.input :state, :label => 'State/Province', :required => false
+    = f.input :zip, :label => 'Zip/Postal Code', :required => false
+    = f.input :country, :label => 'Country', :as => :string, :required => false
+    = f.input :inquiry_source, :label => 'Inquiry source', :required => false
+    = f.input :num_adults, :label => 'Adults', :required => false, :input_html => {:class => 'short'}
+    = f.input :num_children, :label => 'Children', :required => false, :input_html => {:class => 'short'}
+    = f.input :save_on_remote_server, :label => 'Save on VRBO.com', :as => :boolean, :required => false, :input_html => {:onclick => "toggleVrboFields()"}
+
+  - f.inputs :id => 'vrbo_account', :class => !resource.save_on_remote_server && 'hidden' do
+    = f.input :remote_login, :label => 'Login to VRBO'
+    = f.input :remote_password, :label => 'Password to VRBO'
+    - if resource.new_record?
+      = f.input :remote_listing_id, :label => 'VRBO Listing ID'
+  
+  - f.buttons do
+    = f.commit_button "Save"
+    = link_to 'Cancel', collection_path
+
+:javascript
+  $().ready(function(){ toggleVrboFields() });

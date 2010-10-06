@@ -1,0 +1,23 @@
+%html
+  %head
+    %title Test application
+    = formtastic_stylesheet_link_tag
+    = stylesheet_link_tag "styles"
+    
+    = javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"
+    = javascript_include_tag "jqModal", "application"
+  %body
+    = fb_connect_async_js
+    
+    - unless current_facebook_user
+      = fb_login_and_redirect(root_url, :perms => 'email,user_birthday')
+    
+    - else
+      #body
+        #menu
+          = link_to 'Assignments', assignments_path
+      
+        #content
+          = display_flashes
+          = yield
+     

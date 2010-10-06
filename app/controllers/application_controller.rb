@@ -6,5 +6,14 @@ class ApplicationController < ActionController::Base
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
   # Scrub sensitive parameters from your log
-  # filter_parameter_logging :password
+  filter_parameter_logging :password
+  
+  include Facebooker2::Rails::Controller
+  
+  helper_method :current_user
+  
+  protected
+  def current_user
+    @current_user = User.for(current_facebook_user) if current_facebook_user
+  end
 end
