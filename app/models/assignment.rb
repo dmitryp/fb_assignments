@@ -31,7 +31,7 @@ class Assignment < ActiveRecord::Base
   named_scope :by_start_time, :order => 'start_at ASC'
   named_scope :busy, :conditions => {:status => BUSY_STATUSES}
   named_scope :for_listing, lambda{|listing_id|{ :conditions => {:listing_id => listing_id} }}
-  
+  named_scope :except, lambda{|obj|{ :conditions => ["id != ?", obj.try(:id)] }}
 
   def start_date
     start_at.to_date
@@ -123,7 +123,7 @@ private
   # don't allow create more than one assignment with status UNAVAILABLE or RESERVE in same period
   def validate_for_another_assignment
     if start_at && end_at && BUSY_STATUSES.include?(self.status)
-      errors.add(:start_at, 'Another assignment already exists for these dates.') if user.assignments.busy.for_listing(self.listing_id).exists?([" ? < end_at AND ? > start_at", self.start_at, self.end_at])
+      errors.add(:start_at, 'Another assignment already exists for these dates.') if user.assignments.busy.for_listing(self.listing_id).except(self).exists?([" ? < end_at AND ? > start_at", self.start_at, self.end_at])
     end
   end
 end

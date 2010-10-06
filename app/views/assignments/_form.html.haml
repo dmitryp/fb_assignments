@@ -26,7 +26,7 @@
   - f.inputs :id => 'vrbo_account', :class => !resource.save_on_remote_server && 'hidden' do
     = f.input :remote_login, :label => 'Login to VRBO'
     = f.input :remote_password, :label => 'Password to VRBO'
-    - if resource.new_record?
+    - unless resource.remote_id?
       = f.input :remote_listing_id, :label => 'VRBO Listing ID'
   
   - f.buttons do
