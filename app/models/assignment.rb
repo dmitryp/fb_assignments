@@ -70,7 +70,7 @@ class Assignment < ActiveRecord::Base
     ra = RemoteAssignment.new(vrbo_login, vrbo_password, vrbo_listing_id)
     reservations = ra.reservations(year)
     reservations.each do |reservation|
-      unless Assignment.exists?(:remote_id => reservation.remote_id)
+      unless user.assignments.exists?(:remote_id => reservation.remote_id)
         reservation.user = user
         reservation.save_on_remote_server = false
         reservation.save!
